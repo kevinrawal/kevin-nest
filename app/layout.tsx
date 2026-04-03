@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Michroma, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
+import { Navbar } from '@/components/Navbar'
 import './globals.css'
 
 const michroma = Michroma({
@@ -43,6 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${michroma.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <body className="bg-white text-gray-900 antialiased">
+        <Navbar />
         {children}
       </body>
     </html>
