@@ -1,5 +1,6 @@
 # dependencies
 /node_modules
+**/node_modules
 /.pnp
 .pnp.js
 .yarn/install-state.gz
@@ -10,9 +11,22 @@
 # next.js
 /.next/
 /out/
+**/.next/
 
 # production
 /build
+
+# python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
 
 # misc
 .DS_Store

@@ -1,53 +1,139 @@
-# Kevin's Nest — V1 Portfolio
+# Kevin's Nest — Monorepo
 
-A modern, single-page portfolio website built with Next.js, featuring typewriter animations, terminal-style timeline, and smooth scroll interactions.
+A modern portfolio website with Next.js frontend and FastAPI backend, deployed on Vercel and Railway.
 
 ## 🚀 Features
 
-- **Hero Section**: Typewriter animation with red cursor
-- **Timeline Section**: Interactive horizontal (desktop) / vertical (mobile) timeline with detailed event cards
-- **Philosophy Block**: Centered statement with slide-up animation
-- **Terminal-Style Footer**: Social links with hover effects and blinking cursor
-- **Fully Responsive**: Mobile-first design that adapts to all screen sizes
-- **Keyboard Navigation**: Arrow key support for timeline events
-- **Smooth Animations**: Powered by Framer Motion
-- **Accessible**: Keyboard accessible, proper ARIA labels, focus management
+- **Frontend**: Next.js 15 with App Router, TypeScript, Tailwind CSS
+- **Backend**: FastAPI with Python
+- **Monorepo**: Managed with pnpm and Turborepo
+- **CI/CD**: GitHub Actions
+- **Deployments**: Vercel (frontend), Railway (backend)
 
 ## 🛠️ Tech Stack
 
-- **Framework**: Next.js 15 with App Router
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Fonts**: 
-  - Michroma (hero/titles)
-  - Space Grotesk (body text)
-  - JetBrains Mono (terminal/timestamps)
-- **Icons**: Lucide React
-- **Images**: Next.js Image component
+- **Frontend**: Next.js, React, TypeScript, Tailwind CSS, Framer Motion
+- **Backend**: FastAPI, Python, Uvicorn
+- **Tooling**: pnpm, Turborepo
+- **CI/CD**: GitHub Actions
+- **Deployments**: Vercel, Railway
 
 ## 📁 Project Structure
 
 ```
-kevin-personal-blog-site/
-├── app/
-│   ├── layout.tsx          # Root layout with font configuration
-│   ├── page.tsx            # Main page
-│   └── globals.css         # Global styles and animations
-├── components/
-│   ├── Hero.tsx            # Hero section with typewriter
-│   ├── Timeline.tsx        # Interactive timeline
-│   ├── TimelineCard.tsx    # Event detail card
-│   ├── PhilosophyBlock.tsx # Philosophy statement block
-│   └── Footer.tsx          # Terminal-style footer
-├── data/
-│   ├── timeline.ts         # Timeline events data
-│   └── socials.ts          # Social links data
-├── public/
-│   ├── logos/              # Company/institution logos
-│   └── imgs/               # Timeline event images
+kevins-nest-monorepo/
+├── apps/
+│   ├── web/                # Next.js frontend
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── lib/
+│   │   └── ...
+│   └── api/                # FastAPI backend
+│       ├── app/
+│       │   ├── main.py
+│       │   ├── routes/
+│       │   ├── core/
+│       │   └── models/
+│       └── requirements.txt
+├── packages/               # Shared packages (future)
+├── .github/
+│   └── workflows/
 ├── package.json
-├── tsconfig.json
-├── tailwind.config.ts
+├── turbo.json
+└── pnpm-workspace.yaml
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 20+
+- Python 3.12+
+- pnpm
+
+### Installation
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+
+### Development
+
+Run both frontend and backend:
+```bash
+pnpm dev
+```
+
+This will start:
+- Frontend: http://localhost:3000
+- Backend: http://localhost:8000
+
+### Build
+
+```bash
+pnpm build
+```
+
+### Lint
+
+```bash
+pnpm lint
+```
+
+## 📦 Apps
+
+### Frontend (apps/web)
+
+- **Dev**: `pnpm dev` in apps/web
+- **Build**: `pnpm build` in apps/web
+- **Environment**: `.env.local` with `NEXT_PUBLIC_API_URL`
+
+### Backend (apps/api)
+
+- **Dev**: `pnpm dev` in apps/api (runs uvicorn)
+- **API**: http://localhost:8000/health
+
+## 🚀 Deployment
+
+### Frontend (Vercel)
+
+1. Connect repository to Vercel
+2. Set Root Directory: `apps/web`
+3. Build Command: `pnpm build`
+4. Environment Variables:
+   - `NEXT_PUBLIC_API_URL`: Your Railway API URL
+
+### Backend (Railway)
+
+1. Connect repository to Railway
+2. Set Root Directory: `apps/api`
+3. Start Command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+4. Environment Variables: None required
+
+## 🔧 Configuration
+
+### Environment Variables
+
+**Frontend (.env.local)**:
+```
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+**Backend**: Update CORS origins in `apps/api/app/main.py` with your Vercel domain.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make changes
+4. Run tests and lint
+5. Submit a PR
+
+## 📄 License
+
+MIT
 ├── postcss.config.js
 └── next.config.ts
 ```
