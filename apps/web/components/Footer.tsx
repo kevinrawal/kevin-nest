@@ -62,7 +62,7 @@ export function Footer() {
 
         {/* Copyright Line */}
         <div className="text-kevin-muted text-xs pt-6 border-t border-kevin-muted/30">
-          © 2025 Kevin&apos;s Nest · Built with Next.js · v1.0.0
+          © 2025 Kevin&apos;s Nest
         </div>
       </div>
     </footer>
