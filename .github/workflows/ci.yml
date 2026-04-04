@@ -47,7 +47,7 @@ jobs:
       run: pnpm install
 
     - name: Lint
-      run: pnpm lint
+      run: pnpm turbo run lint
 
     - name: Build frontend
       run: pnpm build
