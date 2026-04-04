@@ -119,6 +119,7 @@ pnpm lint
 **Frontend (.env.local)**:
 ```
 NEXT_PUBLIC_API_URL=http://localhost:8000
+ADMIN_PASSWORD=1234
 ```
 
 **Backend**: Update CORS origins in `apps/api/app/main.py` with your Vercel domain.
