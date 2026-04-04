@@ -6,23 +6,19 @@ import { useState, useEffect } from 'react'
 
 export function Hero() {
   const [displayedText, setDisplayedText] = useState('')
-  const [isComplete, setIsComplete] = useState(false)
   
   const fullText = 'Hello, I am Kevin.'
-  const targetLength = fullText.length
+  const isComplete = displayedText.length >= fullText.length
 
   useEffect(() => {
-    if (displayedText.length >= targetLength) {
-      setIsComplete(true)
-      return
-    }
+    if (isComplete) return
 
     const timer = setTimeout(() => {
       setDisplayedText(fullText.slice(0, displayedText.length + 1))
     }, 80)
 
     return () => clearTimeout(timer)
-  }, [displayedText, targetLength])
+  }, [displayedText, isComplete, fullText])
 
   return (
     <section className="min-h-screen w-full bg-white flex flex-col items-center justify-center px-4 relative">
