@@ -1,0 +1,15 @@
+name: Development Preview
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: npm i -g vercel
+
+      - run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
