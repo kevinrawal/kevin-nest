@@ -6,7 +6,10 @@ const nextConfig: NextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
-  outputFileTracingRoot: path.resolve(__dirname),
+  outputFileTracingRoot: path.resolve(__dirname, '../../'),
+  turbopack: {
+    root: path.resolve(__dirname, '../../'),
+  },
 }
 
 export default nextConfig
