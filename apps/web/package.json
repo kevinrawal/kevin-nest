@@ -7,9 +7,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint ."
+    "lint": "eslint ."
   },
   "dependencies": {
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^16.0.0",
     "@types/react-syntax-highlighter": "^15.5.13",
     "autoprefixer": "^10.4.0",
     "framer-motion": "^11.0.0",

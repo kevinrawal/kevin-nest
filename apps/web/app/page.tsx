@@ -10,6 +10,7 @@ import { fetchHealth } from '@/lib/api'
 export default function Home() {
   useEffect(() => {
     // Example API call to backend
+    //TODO: remove this once we have real API routes to test against
     fetchHealth().then(data => console.log('API Health:', data)).catch(console.error)
   }, [])
 
