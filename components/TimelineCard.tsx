@@ -11,7 +11,7 @@ interface TimelineCardProps {
 export function TimelineCard({ event, isActive }: TimelineCardProps) {
   if (!isActive) return null
 
-  const displayImages = event.images?.slice(0, 2) || []
+  const displayImages = event?.images?.slice(0, 2) || []
 
   return (
     <motion.div
