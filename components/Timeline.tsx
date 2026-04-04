@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { timelineEvents } from '@/data/timeline'
 import { TimelineCard } from './TimelineCard'
 
@@ -11,13 +11,13 @@ export function Timeline() {
   const sortedEvents = [...timelineEvents].sort((a, b) => b.year - a.year)
   const eventCount = sortedEvents.length
 
-  const goToPrevious = () => {
+  const goToPrevious = useCallback(() => {
     setActiveIndex((prev) => (prev === 0 ? eventCount - 1 : prev - 1))
-  }
+  }, [eventCount])
 
-  const goToNext = () => {
+  const goToNext = useCallback(() => {
     setActiveIndex((prev) => (prev === eventCount - 1 ? 0 : prev + 1))
-  }
+  }, [eventCount])
 
   const goToEvent = (index: number) => {
     setActiveIndex(index)
@@ -31,7 +31,7 @@ export function Timeline() {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [])
+  }, [goToPrevious, goToNext])
 
   const activeEvent = sortedEvents[activeIndex]
 

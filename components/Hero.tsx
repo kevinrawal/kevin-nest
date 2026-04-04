@@ -22,7 +22,7 @@ export function Hero() {
     }, 80)
 
     return () => clearTimeout(timer)
-  }, [displayedText])
+  }, [displayedText, targetLength])
 
   return (
     <section className="min-h-screen w-full bg-white flex flex-col items-center justify-center px-4 relative">

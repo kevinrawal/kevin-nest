@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import type { TimelineEvent } from '@/data/timeline'
 
@@ -123,10 +124,12 @@ export function TimelineCard({ event, isActive }: TimelineCardProps) {
                   <div className="bg-white border-4 border-gray-200 shadow-lg transform transition-all duration-300 group-hover:scale-105 group-hover:rotate-0 group-hover:z-40 relative w-48">
                     {/* Image */}
                     <div className="relative overflow-hidden w-full h-48">
-                      <img
+                      <Image
                         src={img}
                         alt="event"
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-110"
+                        sizes="(max-width: 1024px) 100vw, 20rem"
                       />
                       {/* Overlay on hover */}
                       <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

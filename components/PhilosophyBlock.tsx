@@ -16,11 +16,11 @@ export function PhilosophyBlock() {
         className="max-w-4xl mx-auto border-l-8 border-kevin-red pl-8 md:pl-12"
       >
         <h2 className="font-michroma text-3xl md:text-5xl font-bold text-gray-900 mb-6 text-center md:text-left">
-          I don't just write code. I think in systems.
+          I don&apos;t just write code. I think in systems.
         </h2>
 
         <p className="text-center md:text-left text-sm text-kevin-muted font-space-grotesk">
-          // updated quarterly
+          {'// updated quarterly'}
         </p>
       </motion.div>
     </section>
