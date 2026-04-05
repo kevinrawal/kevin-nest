@@ -44,6 +44,10 @@ jobs:
             -r report.html \
             -I -a
 
+      - name: Fix permissions after baseline scan
+        if: always()
+        run: sudo chmod -R 777 scanning
+
       # ── Full Scan ──────────────────────────────────────────────
       - name: Run Full Scan
         if: ${{ inputs.scan_type == 'full' || inputs.scan_type == 'both' }}
@@ -54,6 +58,10 @@ jobs:
             -t https://kevin-nest.vercel.app \
             -r full-report.html \
             -I -T 60 -m 5
+
+      - name: Fix permissions after full scan
+        if: always()
+        run: sudo chmod -R 777 scanning
 
       # ── Authenticated Admin Scan ───────────────────────────────
       - name: Create Auth Context
@@ -95,9 +103,22 @@ jobs:
             -r admin-report.html \
             -I -T 60 -m 5
 
+      - name: Fix permissions after admin scan
+        if: always()
+        run: sudo chmod -R 777 scanning
+
+      # ── Ensure report files exist for agent ───────────────────
+      - name: Ensure report files exist
+        if: always()
+        run: |
+          touch scanning/report.html
+          touch scanning/full-report.html
+          touch scanning/admin-report.html
+
       # ── Upload Reports ─────────────────────────────────────────
       - name: Get timestamp
         id: timestamp
+        if: always()
         run: echo "ts=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
 
       - name: Upload Scan Reports
@@ -108,15 +129,9 @@ jobs:
           path: scanning/*.html
           retention-days: 30
 
-      # ── Ensure report files exist for agent ───────────────────
-      - name: Ensure report files exist
-        run: |
-          touch scanning/report.html
-          touch scanning/full-report.html
-          touch scanning/admin-report.html
-
       # ── GitHub Models Agent ────────────────────────────────────
       - name: Run Security Agent
+        if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
