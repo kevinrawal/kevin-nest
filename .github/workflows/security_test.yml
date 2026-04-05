@@ -29,7 +29,9 @@ jobs:
           node-version: '20'
 
       - name: Create scanning directory
-        run: mkdir -p scanning
+        run: |
+          mkdir -p scanning
+          chmod 777 scanning
 
       # ── Baseline Scan ──────────────────────────────────────────
       - name: Run Baseline Scan
@@ -39,8 +41,8 @@ jobs:
             -v $(pwd)/scanning:/zap/wrk:rw \
             zaproxy/zap-stable zap-baseline.py \
             -t https://kevin-nest.vercel.app \
-            -r report.html \
-            -I
+            -r /zap/wrk/report.html \
+            -I -a
 
       # ── Full Scan ──────────────────────────────────────────────
       - name: Run Full Scan
@@ -50,8 +52,8 @@ jobs:
             -v $(pwd)/scanning:/zap/wrk:rw \
             zaproxy/zap-stable zap-full-scan.py \
             -t https://kevin-nest.vercel.app \
-            -r full-report.html \
-            -I
+            -r /zap/wrk/full-report.html \
+            -I -T 60 -m 5
 
       # ── Authenticated Admin Scan ───────────────────────────────
       - name: Create Auth Context
@@ -90,26 +92,30 @@ jobs:
             -t https://kevin-nest.vercel.app/admin \
             -n /zap/wrk/auth.context \
             -U admin \
-            -r admin-report.html \
-            -I
+            -r /zap/wrk/admin-report.html \
+            -I -T 60 -m 5
 
       # ── Upload Reports ─────────────────────────────────────────
+      - name: Get timestamp
+        id: timestamp
+        run: echo "ts=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
+
       - name: Upload Scan Reports
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: zap-security-reports
+          name: zap-security-reports-${{ steps.timestamp.outputs.ts }}
           path: scanning/*.html
           retention-days: 30
 
-      # ── Ensure report exists for agent ────────────────────────
+      # ── Ensure report files exist for agent ───────────────────
       - name: Ensure report files exist
         run: |
           touch scanning/report.html
           touch scanning/full-report.html
           touch scanning/admin-report.html
 
-      # ── Claude/GitHub Models Agent ─────────────────────────────
+      # ── GitHub Models Agent ────────────────────────────────────
       - name: Run Security Agent
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
