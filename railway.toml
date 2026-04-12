@@ -1,9 +1,13 @@
-[services.web]
-buildCommand = "cd apps/web && npm run build"
-startCommand = "cd apps/web && npm start"
+[[services]]
+name = "web"
+source = "./apps/web"
+buildCommand = "npm run build"
+startCommand = "npm start"
 healthcheckPath = "/"
 
-[services.api]
-buildCommand = "cd apps/api && pip install -r requirements.txt"
-startCommand = "cd apps/api && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+[[services]]
+name = "api"
+source = "./apps/api"
+buildCommand = "pip install -r requirements.txt"
+startCommand = "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
 healthcheckPath = "/health"
