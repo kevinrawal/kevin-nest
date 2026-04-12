@@ -4,7 +4,7 @@ from app.routes import health
 
 app = FastAPI(title="Kevin's Nest API", version="1.0.0")
 
-# CORS middleware
+# CORS middleware: allow requests from the React frontend (localhost:3000) and Vercel deployment
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000", "https://kevin-nest.vercel.app"],  # Update with actual Vercel domain
